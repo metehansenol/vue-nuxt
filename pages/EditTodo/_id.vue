@@ -91,6 +91,7 @@ export default {
         completed: this.completed,
         order: this.order,
         title: this.title,
+        createdOn: this.date
       };
 
       this.$axios

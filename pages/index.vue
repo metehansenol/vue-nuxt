@@ -15,6 +15,8 @@
                   :tableItem="todoItems"
                   v-on:todoItemSelected="itemSelected"
                   v-on:click.prevent="tableClick(item)"
+                  :row-selection="true"
+                  selected-row-bg-color="#f77f00"
                 />
               </v-col>
             </v-row>

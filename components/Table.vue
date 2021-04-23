@@ -14,14 +14,15 @@
             v-on:click="onItemClick(item)"
             v-for="item in tableItem"
             :key="item.id"
+            :style="selectedId === item.id && rowSelection ? selectedRowStyle : {}"
           >
             <td>{{ item.order }}</td>
             <td>{{ item.title }}</td>
             <td>
-              <div class="link">
-                <i class="cib-nuxt-js"></i>
-                <NuxtLink :to="{ path: `EditTodo/${item.id}` }">Edit</NuxtLink>
-              </div>
+              <v-btn :to="`EditTodo/${item.id}`" nuxt tile small dark color="primary">
+                <v-icon left> mdi-pencil </v-icon>
+                Edit
+              </v-btn>
             </td>
           </tr>
         </tbody>
@@ -39,20 +40,29 @@ export default {
   },
   props: {
     tableItem: Array,
+    rowSelection: Boolean,
+    selectedRowBgColor: String
   },
   data() {
-    return {};
+    return {
+      selectedId: -1,
+      selectedRowStyle: {
+        color: 'black',
+        backgroundColor: this.selectedRowBgColor
+      }
+    };
   },
   methods: {
-    pushITem: function (item) {
-      router.push({ name: "EditTodo", params: item });
-    },
     onItemClick: function (item) {
+      this.selectedId = item.id;
       this.$emit("todoItemSelected", item);
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+  tbody tr {
+    cursor: pointer;
+  }
 </style>
